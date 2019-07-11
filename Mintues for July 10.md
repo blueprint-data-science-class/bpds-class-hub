@@ -1,4 +1,4 @@
-##Minutes for July 10th
+## Minutes for July 10th
 
 1. In addition to our primary goal of building basic R proficiency as a group, with special attention to data cleaning and wrangling, our secondary goal should be developing the skills to use R markdown to create "live" reports that allow for real-time updating of report charts and data contained in them.  
 
