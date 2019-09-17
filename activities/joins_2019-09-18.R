@@ -35,7 +35,17 @@ lotr <- bind_rows(
 
 lotr
 
+
+# BIND COLS ---------------------------------------------------------------
+
+# just kidding, don't do it.
+# instead of binding columns, look to the more robust joins
+
 # JOINS -------------------------------------------------------------------
+
+# When you want to add more information about the same observations, go ahead and join!
+# Why we're only talking about left_join, not right_join, inner_join, and full_join
+
 library(nycflights13)
 
 # details about each flight
