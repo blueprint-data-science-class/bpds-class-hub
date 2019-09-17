@@ -28,6 +28,7 @@ load_lotr_data <- function() {
 
 untidy_lotr_data <- load_lotr_data()
 
+
 untidy_lotr_data
 
 
@@ -53,7 +54,7 @@ tidy_lotr_data <- untidy_lotr_data %>%
     female
   )
 
-
+tidy_lotr_data
 
 # make the data set too long, 
 # - one column reps multiple variables
@@ -82,24 +83,33 @@ tidy_again_lotr_data <- too_tidy_lotr_data %>%
 
 all.equal(tidy_lotr_data, tidy_again_lotr_data)
 
+tidy_again_lotr_data
 
 # Tidy data unlocks the power of ggplot2
 
 bar_sideways <- tidy_lotr_data %>% 
   
   
-  ggplot(aes(x = film, y = words_spoken)) + 
+  ggplot(
+    aes(x = film, y = words_spoken)
+  ) + 
   
-  geom_col(aes(fill = gender), position = "dodge") + 
+  geom_col(
+    aes(fill = gender), 
+    position = "dodge"
+  ) + 
   
   coord_flip()
 
 bar_sideways
 
+extrafont::loadfonts(device = "win")
 
 facets <- bar_sideways + 
   
-  facet_wrap(~ race, ncol = 1) 
+  facet_wrap(~ race, ncol = 1) + 
+  bptheme::theme_blueprint() + 
+  bptheme::scale_fill_blueprint(discrete = TRUE)
   
 
 facets
