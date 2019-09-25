@@ -33,6 +33,14 @@ lotr <- bind_rows(
   ttow
 )
 
+lotr_list <- list(
+  fship, 
+  rking, 
+  ttow
+)
+
+lotr <- lotr_list %>% bind_rows()
+
 lotr
 
 
@@ -127,6 +135,7 @@ top_five_flights <- top_five_flights %>%
   ) %>%
 
   rename(
+    
     # now tzone means something different
     destination_timezone = tzone
   )
@@ -160,8 +169,10 @@ departure_delay_by_tz <- top_five_flights %>%
 
   summarize(
     mean_departure_delay = mean(dep_delay),
-    on_time_pct = mean(dep_delay < 0)
+    on_time_pct_wrong = mean(dep_delay < 0), 
+    on_time_pct_chris = mean(dep_delay <= 0)
   )
+
 
 
 departure_delay_by_tz
@@ -182,7 +193,7 @@ departure_delay_by_tz %>%
 
 top_five_flights %>%
 
-  sample_n(5000) %>%
+  sample_frac(0.4) %>%
 
   ggplot(aes(dep_delay, arr_delay)) +
 
