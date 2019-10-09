@@ -42,6 +42,26 @@ cut_color_count %>%
     mapping = aes(fill = color)
   )
 
+cut_color_count %>% 
+  
+  # ggplot object
+  ggplot(
+    # global mapping
+    mapping = aes(cut, n)
+  ) + 
+  
+  # geometry layer
+  geom_col(
+    # geometry-specific mapping
+    mapping = aes(fill = color)
+  ) + 
+
+  facet_wrap(
+    vars(color),
+    nrow = 1
+  ) +
+  
+  coord_flip()
 
 
 # SCATTER PLOTS -----------------------------------------------------------
@@ -63,7 +83,9 @@ dat %>%
     size = 2, 
     alpha = 0.8, 
     fill = "darkred"
-  )
+  ) + 
+  
+  geom_smooth(method = "lm")
 
 
 # facet to produce small multiples
@@ -76,11 +98,13 @@ dat %>%
   geom_point(
     shape = 21, 
     size = 2, 
-    alpha = 0.8, 
+    alpha = 0.4, 
     fill = "tomato"
   ) + 
   
-  facet_wrap(vars(clarity))
+  facet_wrap(vars(clarity)) +
+  
+  geom_smooth() 
 
 
 
@@ -105,9 +129,40 @@ dat %>%
   ) + 
   
   geom_quasirandom(
+    aes(size = carat, fill = carat),
+    
     # geom_quasirandom plots every point and takes the same parameters as geom_point
     shape = 21, 
-    fill = "tomato",
-    alpha = 0.7
-  )
+    alpha = 0.2
+  ) + 
   
+  scale_fill_viridis_c()
+
+
+# distributions with ggbeeswarm
+dat %>% 
+  
+  ggplot(
+    aes(
+      # first two arguments are always x and y
+      clarity, 
+      price
+    )
+  ) + 
+  
+  geom_bar(
+    stat = "summary", 
+    fun.y = "mean", 
+    alpha = 0.2
+  ) + 
+  
+  geom_quasirandom(
+    aes(fill = color),
+    
+    # geom_quasirandom plots every point and takes the same parameters as geom_point
+    shape = 21, 
+    alpha = 0.2
+  ) + 
+  
+  coord_flip() + 
+  facet_wrap(vars(color))
